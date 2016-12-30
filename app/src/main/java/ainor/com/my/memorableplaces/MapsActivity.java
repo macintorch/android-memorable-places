@@ -1,7 +1,9 @@
 package ainor.com.my.memorableplaces;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +39,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        Intent intent = getIntent();
+
+        Toast.makeText(this, intent.getStringExtra("placeNumber"), Toast.LENGTH_SHORT).show();
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
