@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -109,14 +110,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (Build.VERSION.SDK_INT < 23) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0, locationListener);
             } else {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
 
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0, locationListener);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
-                centerMapOnLocation(lastKnownLocation,"Your Location");
+                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                    centerMapOnLocation(lastKnownLocation, "Your Location");
+                }else {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                }
             }
+
+
 
 
 
