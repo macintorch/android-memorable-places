@@ -24,7 +24,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
     private GoogleMap mMap;
     LocationManager locationManager;
@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(userLocation).title(title));
 
         }
-        
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,15));
     }
 
@@ -84,6 +84,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        mMap.setOnMapLongClickListener(this);
 
         Intent intent = getIntent();
 
@@ -133,6 +135,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         }
+
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Your new memorable place"));
 
     }
 }
