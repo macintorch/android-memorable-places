@@ -171,11 +171,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         if (address == "") {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm yyyy-MM-dd");
             address = sdf.format(new Date());
         }
 
         mMap.addMarker(new MarkerOptions().position(latLng).title(address));
+
+        MainActivity.places.add(address);
+        MainActivity.locations.add(latLng);
+
+        Toast.makeText(this, "Location Saved", Toast.LENGTH_SHORT).show();
 
     }
 }
