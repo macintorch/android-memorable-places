@@ -179,6 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         MainActivity.places.add(address);
         MainActivity.locations.add(latLng);
+        MainActivity.arrayAdapter.notifyDataSetChanged();
 
         Toast.makeText(this, "Location Saved", Toast.LENGTH_SHORT).show();
 
