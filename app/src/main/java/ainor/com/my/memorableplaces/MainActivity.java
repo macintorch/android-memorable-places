@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> latitudes = new ArrayList<>();
         ArrayList<String> longitudes = new ArrayList<>();
 
+        //clear the arraylist to avoid duplication
+
+        places.clear();
+        latitudes.clear();
+        longitudes.clear();
+        locations.clear();
+
 
         try {
             places = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("places",ObjectSerializer.serialize(new ArrayList<String>())));
@@ -58,11 +65,13 @@ public class MainActivity extends AppCompatActivity {
                     locations.add(new LatLng(Double.parseDouble(latitudes.get(i)), Double.parseDouble(longitudes.get(i))));
                 }
             }
+        } else {
+            places.add("Add a new place..");
+            locations.add(new LatLng(0,0));
         }
 
 
-        places.add("Add a new place..");
-        locations.add(new LatLng(0,0));
+
 
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,places);
 
