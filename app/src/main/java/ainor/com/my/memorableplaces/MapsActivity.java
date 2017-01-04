@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -57,7 +58,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void centerMapOnLocation (Location location, String title) {
         LatLng userLocation = new LatLng(location.getLatitude(),location.getLongitude());
-
         mMap.clear();
 
         if (title != "Your Location") {
@@ -189,6 +189,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MainActivity.places.add(address);
         MainActivity.locations.add(latLng);
         MainActivity.arrayAdapter.notifyDataSetChanged();
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("package ainor.com.my.memorableplaces", Context.MODE_PRIVATE);
+
+        try {
+
+            sharedPreferences.edit().putString("places", ObjectSerializer.serialize(MainActivity.places)).apply();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
 
         Toast.makeText(this, "Location Saved", Toast.LENGTH_SHORT).show();
 
